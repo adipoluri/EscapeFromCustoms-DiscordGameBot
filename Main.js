@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const {token} = require('./config.json');
+const {token} = require('./configs.json');
+var Stats = require('./Stats.js')
+
 client.login(token);
 //constantly check messages from users
  client.on('message', (msg) =>{
@@ -11,8 +13,5 @@ client.login(token);
 
 //runs when bot turns on
 client.on('ready', () => {
-console.log('Bot is now connected');
-
-const channel = client.channels.cache.get('125358791146340352').send('Connected!');
+console.log('Bot is now connected '+ Stats.STR);
 });
-
