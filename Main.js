@@ -1,8 +1,7 @@
 const Discord = require('discord.js');
-const token = 'NzQ2Mjk4NTM4MzMzMzA2OTUx.Xz-SrQ.07Ht-A5wqb2VxjS9pfx1iteLfgM'
 const client = new Discord.Client();
+const {token} = require('./config.json');
 client.login(token);
-
 //constantly check messages from users
  client.on('message', (msg) =>{
     if (msg.content == 'what is that'){
