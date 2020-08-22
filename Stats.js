@@ -24,7 +24,7 @@ con.connect(function(err){
         process(PStats);
     });
 });
-
+//deprecated -- see function below
 //setTimeout(function(){exports.PStats = PStats; console.log(PStats)}, 100);
 
 function process(callback){

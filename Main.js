@@ -3,7 +3,6 @@ const {token} = require('./configs.json');
 const fs = require('fs');
 const prefix = "!";
 var Stats = require('./Stats.js')
-
 const client = new Discord.Client();
 client.login(token);
 
@@ -14,9 +13,8 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+  client.commands.set(command.name, command);
 }
-
 
 //constantly check messages from users
 client.on('message', message =>{
@@ -24,7 +22,8 @@ client.on('message', message =>{
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
-  
+  var USERID = message.member.id;
+  processID(USERID);
   if (!client.commands.has(command)) return;
 
   try {
@@ -37,5 +36,9 @@ client.on('message', message =>{
 
 //runs when bot turns on
 client.on('ready', () => {
-console.log('Bot is now connected ' + Stats.PStats);
+console.log('Bot is now connected ');
 });
+
+function processID(callback){
+exports.USERID = callback;
+}
