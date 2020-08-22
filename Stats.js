@@ -1,5 +1,7 @@
 var mysql = require('mysql');
 var PStats;
+
+//Establishes connection to MySQL Database
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -8,10 +10,10 @@ var con = mysql.createConnection({
 });
 
 
-
 con.connect(function(err){
     if (err) throw err;
     console.log("Connected!");
+    
     con.query("Select * FROM PStats", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
