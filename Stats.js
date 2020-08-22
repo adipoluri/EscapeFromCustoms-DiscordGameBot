@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var STR;
+var PStats;
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -15,9 +15,12 @@ con.connect(function(err){
     con.query("Select * FROM PStats", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
-        STR = result[0].STR;
-        return STR
+        PStats = [result[0].STR,
+                  result[0].DEX,
+                  result[0].PERC,
+                  result[0].PREC];
+        return PStats
     });
 });
 
-setTimeout(function(){exports.STR = STR;}, 100);
+setTimeout(function(){exports.PStats = PStats;}, 100);

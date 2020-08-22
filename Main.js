@@ -13,5 +13,5 @@ client.login(token);
 
 //runs when bot turns on
 client.on('ready', () => {
-console.log('Bot is now connected '+ Stats.STR);
+console.log('Bot is now connected '+ Stats.PStats);
 });
