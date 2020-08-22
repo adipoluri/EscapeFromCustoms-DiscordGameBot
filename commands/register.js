@@ -21,7 +21,7 @@ module.exports = {
 				var found = false;
 				var ID = message.member.id;
 				for(i = 0; i < result.length; i++) {
-					if(result[i] == ID) {
+					if(result[i].UserID == ID) {
 						found = true;
 					}
 				}
