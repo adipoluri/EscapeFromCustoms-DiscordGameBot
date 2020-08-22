@@ -17,12 +17,16 @@ con.connect(function(err){
     con.query("Select * FROM PStats", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
-        PStats = [result[0].STR,
-                  result[0].DEX,
-                  result[0].PERC,
-                  result[0].PREC];
-        return PStats
+          PStats = [result[0].STR,
+                   result[0].DEX,
+                   result[0].PERC,
+                   result[0].PREC];
+        process(PStats);
     });
 });
 
-setTimeout(function(){exports.PStats = PStats;}, 100);
+//setTimeout(function(){exports.PStats = PStats; console.log(PStats)}, 100);
+
+function process(callback){
+    exports.PStats = callback;
+}
