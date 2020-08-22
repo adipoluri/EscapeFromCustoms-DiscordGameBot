@@ -7,6 +7,8 @@ SET character_set_client = utf8mb4 ;
 
 CREATE TABLE `PStats` (
   `UserID` varchar(18) NOT NULL,
+  `LVL` int(3) DEFAULT 1,
+  `EXP` int DEFAULT 0,
   `STR` int(2) DEFAULT 5,
   `DEX` int(2) DEFAULT 5,
   `PREC` int(2) DEFAULT 5,
