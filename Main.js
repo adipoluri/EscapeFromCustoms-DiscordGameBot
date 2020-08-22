@@ -37,5 +37,5 @@ client.on('message', message =>{
 
 //runs when bot turns on
 client.on('ready', () => {
-console.log('Bot is now connected '+ Stats.PStats);
+console.log('Bot is now connected ' + Stats.PStats);
 });

@@ -16,25 +16,24 @@ module.exports = {
 		con.connect(function(err){
 			if (err) throw err;
 			
+			
+			
 			con.query("Select * FROM PStats", function (err, result, fields) {
 				if (err) throw err;
-				var found = false;
 				var ID = message.member.id;
+				var found = false;
 				for(i = 0; i < result.length; i++) {
-					if(result[i] == ID) {
+					if(result[i].UserID == ID) {
 						found = true;
 					}
 				}
-				if (!found) {
+				if(!found) {
 					con.query("INSERT INTO `PStats` (UserID) VALUES (" + ID + ")");
-					if(err & err != "ER_DUP_ENTRY"){
-						message.channel.send('Already Registered!');
-					} else {
-						message.channel.send('Successfully Registered!');
-					}
+					message.channel.send('You have been Registered!');
+				} else {
+					message.channel.send('You are already Registered!');
 				}
-
-			});
+			});	
 		});
 		
 	},
