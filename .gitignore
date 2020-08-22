@@ -1,5 +1,6 @@
 # Config Files
 configs.JSON
+node_modules/
 
 # Logs
 logs
