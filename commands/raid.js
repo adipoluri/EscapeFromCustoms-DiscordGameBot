@@ -26,16 +26,17 @@ module.exports = {
 
 	//#1 Connects to and assigns the player stats from the user who used !raid into an array named Stats
 	cont.connect(function (err){
-		if (err) throw err;
-		cont.query("Select * FROM PStats", function(err, result){
-			var ID = message.member.id;
-			for(var i=0; i < result.length; i++){
-				if(result[i].UserID == ID){
-					Stats = [result[i].STR, result[i].DEX, result[i].PREC, result[i].PERC]
+		if(CheckIfRegistered(message.member.ID) == true){
+			if (err) throw err;
+			cont.query("Select * FROM PStats", function(err, result){
+				var ID = message.member.id;
+				for(var i=0; i < result.length; i++){
+					if(result[i].UserID == ID){
+						Stats = [result[i].STR, result[i].DEX, result[i].PREC, result[i].PERC]
+					}
 				}
-			}
-		})
-
+			})
+		}
 		//ensures that the individual isn't from someone who has already registered for !raid, preventing their UserID and Stats from being duplicated
 		con.query("Select * FROM Players", function (err, result) {
 			if (err) throw err;
@@ -59,7 +60,17 @@ module.exports = {
 			} else {
 				message.channel.send('You are already queued!');
 			}
-		});	
+		});
+		//function to check if user has registered beforehand
+		function CheckIfRegistered(ID){
+		cont.query("Select UserID FROM PStats", function(err, result){
+			for(var i=0; i < result.length; i++){
+				if(result[i].UserID == ID){
+					return true;
+				}
+			}
+		}
+		)}
 	})
 	},
 };
