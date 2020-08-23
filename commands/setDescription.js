@@ -25,9 +25,6 @@ module.exports = {
 				}
 				if(found) {
 					var argClean = args.join(" ");
-					argClean = argClean.replace(/'/g, "");
-					argClean = argClean.replace(/"/g, "");
-					
 					con.query('UPDATE PStats SET Description = "' + argClean + '" WHERE UserID = '+ ID);
 					
 					
