@@ -1,7 +1,8 @@
+CREATE database `PlayerStats`;
 USE `PlayerStats`;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 flush privileges;
-SET NAMES utf8 ;
+SET NAMES utf8;
 SET character_set_client = utf8mb4 ;
 
 CREATE TABLE `PStats` (
