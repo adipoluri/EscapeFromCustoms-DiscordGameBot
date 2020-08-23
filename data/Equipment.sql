@@ -1,10 +1,10 @@
-CREATE DATABASE `Equipment`;
 USE `Equipment`;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 flush privileges;
 SET NAMES utf8 ;
 SET character_set_client = utf8mb4 ;
-CREATE TABLE `Equipment` (
+
+CREATE TABLE `Equip` (
 `UserID` varchar(18) NOT NULL,
 `Slot1` varchar(20) DEFAULT 'Makarov',
 `Slot2` varchar(20) DEFAULT 'EMPTY',

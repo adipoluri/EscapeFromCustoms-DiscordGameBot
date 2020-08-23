@@ -1,9 +1,9 @@
-CREATE DATABASE `PlayersInRaid`;
 USE `PlayersInRaid`;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 flush privileges;
 SET NAMES utf8 ;
 SET character_set_client = utf8mb4 ;
+
 CREATE TABLE `Players` (
 `UserID` varchar(18) NOT NULL,
 `STR` int(2) DEFAULT NULL,
