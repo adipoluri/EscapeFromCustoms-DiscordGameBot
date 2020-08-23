@@ -34,7 +34,7 @@ module.exports = {
 					con.query("INSERT INTO `PStats` (UserID) VALUES (" + ID + ")");
 					message.channel.send('You have been Registered!');
 				} else {
-					message.channel.send('You are already Registered!');
+					message.reply('you are already Registered!');
 				}
 			});	
 		});

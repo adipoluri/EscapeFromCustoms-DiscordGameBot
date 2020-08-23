@@ -70,7 +70,7 @@ module.exports = {
 					})
 
 				} else {
-					message.reply('You are not Registered! Register already you simp!');
+					message.reply('You are not Registered! Use !Register now you simp!');
 				}
 			});	
         });	
