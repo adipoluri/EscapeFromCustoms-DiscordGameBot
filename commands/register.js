@@ -25,13 +25,13 @@ module.exports = {
 			con.query("Select * FROM PStats", function (err, result) {
 				if (err) throw err;
 				var ID = message.member.id;
-				var found = false;
+				var alreadyinraid = false;
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						found = true;
+						alreadyinraid = true;
 					}
 				}
-				if(!found) {
+				if(!alreadyinraid) {
 					con.query("INSERT INTO `PStats` (UserID) VALUES (" + ID + ")");
 					message.channel.send('You have been Registered!');
 				} else {
@@ -45,13 +45,13 @@ module.exports = {
 			equip.query("Select * FROM Equip", function (err, result) {
 				if (err) throw err;
 				var ID = message.member.id;
-				var found = false;
+				var alreadyinraid = false;
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						found = true;
+						alreadyinraid = true;
 					}
 				}
-				if(!found) {
+				if(!alreadyinraid) {
 					equip.query("INSERT INTO `Equip` (UserID) VALUES (" + ID + ")");
 				}
 			});	

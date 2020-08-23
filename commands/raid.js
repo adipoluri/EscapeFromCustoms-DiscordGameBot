@@ -4,9 +4,9 @@
 const EventEmitter = require('events');
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
-var first = new Boolean(false);
+var first = new Boolean(true);
 var Stats = [];
-var found = false;
+var alreadyinraid = false;
 var alreadyregistered = new Boolean(false);
 module.exports = {
 	name: 'raid',
@@ -44,16 +44,16 @@ module.exports = {
 			var ID = message.member.id;
 			for(var i = 0; i < result.length; i++) {
 				if(result[i].UserID == ID) {
-					found = true;
+					alreadyinraid = true;
 					//emits a message for myEmitter.on to activate
-					myEmitter.emit('found');
+					myEmitter.emit('alreadyinraid');
 				}
 			}
 			CheckIfRegistered(message.member.ID);
 			setTimeout(function() {
 				//emits a message for myEmitter.on to activate
-				myEmitter.emit('found');
-			if(!found && alreadyregistered == false) {
+				myEmitter.emit('alreadyinraid');
+			if(!alreadyinraid && alreadyregistered == false) {
 				setTimeout(function(){
 					//Utilizes the Stats array to store the player's stats for in game use, see 'PlayersInRaid' Schema.
 				con.query("INSERT INTO `Players` (UserID) VALUES (" + ID + ")");
@@ -65,7 +65,7 @@ module.exports = {
 			}, 1000);
 			} else {
 				message.channel.send('You are already queued or have not registered, make sure to user !register');
-				console.log(CheckIfRegistered(message.member.ID));
+				alreadyinraid = false;
 			}}, 100)
 			//function to check if user has registered beforehand 'if true they have used !register beforehand'
 			function CheckIfRegistered(ID){
@@ -83,21 +83,21 @@ module.exports = {
 		});
 	})
 	var time = 60;
-	//awaits for 'found' to be emitted from myEmitter
-	myEmitter.on('found', () => {
-		console.log('found!')
-		console.log('first: ', first, 'found: ', found, 'alreadyregistered: ', alreadyregistered)
-	if(first == false && found == false && alreadyregistered == false){
-		message.channel.send('Timer started, 1 minute before raid starts')
-		first = true;
-	var countdown = setInterval(function(){
-			//time countdown, later add an if (time == 0) to start raid
-			time = time-10;
-			message.channel.send('Time left: ' + time + 's')
-			if (time == 0)
-			clearInterval(countdown)
-		}, 10000)
-	}
+	//awaits for 'alreadyinraid' to be emitted from myEmitter
+	myEmitter.on('alreadyinraid', () => {
+		console.log('User who used !raid is, first to initialize a new raid: ', first, 'already in a raid: ', alreadyinraid, 'already registered: ', alreadyregistered)
+			if(first == true && alreadyinraid == false && alreadyregistered == false){
+				console.log('User has met all requirements, adding them to playersinraid database!')
+				message.channel.send('Timer started, 1 minute before raid starts')
+				first = false;
+				var countdown = setInterval(function(){
+					//time countdown, later add an if (time == 0) to start raid
+					time = time-10;
+					message.channel.send('Time left: ' + time + 's')
+					if (time == 0)
+					clearInterval(countdown)
+				}, 10000)
+			}
 	});
 	},
 };

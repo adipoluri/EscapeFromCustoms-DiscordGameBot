@@ -25,14 +25,14 @@ module.exports = {
                 
 				var ID = message.member.id;
 				var userIndex;
-                var found = false;
+                var alreadyinraid = false;
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						found = true;
+						alreadyinraid = true;
 						userIndex = i;
 					}
                 }
-				if(found) {
+				if(alreadyinraid) {
 
 					equip.connect(function(err){
 						if (err) throw err;

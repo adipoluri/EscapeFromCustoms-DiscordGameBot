@@ -17,13 +17,13 @@ module.exports = {
 			con.query("Select * FROM PStats", function (err, result) {
 				if (err) throw err;
 				var ID = message.member.id;
-				var found = false;
+				var alreadyinraid = false;
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						found = true;
+						alreadyinraid = true;
 					}
 				}
-				if(found) {
+				if(alreadyinraid) {
 					var argClean = args.join(" ");
 					con.query('UPDATE PStats SET Description = "' + argClean + '" WHERE UserID = '+ ID);
 				} else {
