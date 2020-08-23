@@ -14,7 +14,7 @@ con.connect(function(err){
     if (err) throw err;
     console.log("Connected!");
     
-    con.query("Select * FROM PStats", function (err, result, fields) {
+    con.query("Select * FROM PStats", function (err, result) {
         if (err) throw err;
         console.log(result);
           PStats = [result[0].STR,
@@ -25,6 +25,7 @@ con.connect(function(err){
     });
 });
 
+//deprecated -- see function below
 //setTimeout(function(){exports.PStats = PStats; console.log(PStats)}, 100);
 
 function process(callback){
