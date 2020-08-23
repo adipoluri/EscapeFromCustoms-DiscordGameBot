@@ -1,14 +1,14 @@
-const { execute } = require("./register");
-var i = 0;
-var ID = [i, null];
+//Linter says these two vars are not used, ill leave them but delete them if u dont need it
+//const { execute } = require("./register");
+//var ID = [i, null];
+
 var Stats = [];
 module.exports = {
 	name: 'raid',
 	description: 'Raid',
 
-	execute(message, args) {
+	execute(message) {
 		var mysql = require('mysql');
-		message.channel.send('Feature not fully implemented');
 		//Establish connection with temporary data of all players in raid
 			var con = mysql.createConnection({
 				host: "localhost",
@@ -23,12 +23,13 @@ module.exports = {
 				password:"password",
 				database: "PlayerStats"
 		});
+
 	//#1 Connects to and assigns the player stats from the user who used !raid into an array named Stats
 	cont.connect(function (err){
 		if (err) throw err;
-		cont.query("Select * FROM PStats", function(err, result, fields){
+		cont.query("Select * FROM PStats", function(err, result){
 			var ID = message.member.id;
-			for(i=0; i < result.length; i++){
+			for(var i=0; i < result.length; i++){
 				if(result[i].UserID == ID){
 					Stats = [result[i].STR, result[i].DEX, result[i].PREC, result[i].PERC]
 				}
@@ -36,11 +37,11 @@ module.exports = {
 		})
 
 		//ensures that the individual isn't from someone who has already registered for !raid, preventing their UserID and Stats from being duplicated
-		con.query("Select * FROM Players", function (err, result, fields) {
+		con.query("Select * FROM Players", function (err, result) {
 			if (err) throw err;
 			var ID = message.member.id;
 			var found = false;
-			for(i = 0; i < result.length; i++) {
+			for(var i = 0; i < result.length; i++) {
 				if(result[i].UserID == ID) {
 					found = true;
 				}
