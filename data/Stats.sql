@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 CREATE DATABASE `PlayerStats`;
-=======
-CREATE database `PlayerStats`;
->>>>>>> eb748a6cbe16f2ee1e8e73b0f9e4a3caa189f43a
 USE `PlayerStats`;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 flush privileges;
