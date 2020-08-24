@@ -6,7 +6,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password:"password",
-    database: "PlayerStats"
+    database: "Players"
 });
 
 
@@ -14,7 +14,7 @@ con.connect(function(err){
     if (err) throw err;
     console.log("Connected!");
     
-    con.query("Select * FROM PStats", function (err, result) {
+    con.query("Select * FROM Playerstats", function (err, result) {
         if (err) throw err;
         console.log(result);
           PStats = [result[0].STR,

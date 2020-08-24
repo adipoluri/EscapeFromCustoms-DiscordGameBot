@@ -9,53 +9,31 @@ module.exports = {
 			host: "localhost",
 			user: "root",
 			password:"password",
-			database: "PlayerStats",
-		});
-		//Establishes connection to MySQL Database for Equipment
-		var equip = mysql.createConnection({
-			host: "localhost",
-			user: "root",
-			password:"password",
-			database: "Equipment",
+			database: "Players",
 		});
 		
 		//generates default stats for new !register
 		con.connect(function(err){
 			if (err) throw err;
-			con.query("Select * FROM PStats", function (err, result) {
+			con.query("Select * FROM Playerstats", function (err, result) {
 				if (err) throw err;
 				var ID = message.member.id;
-				var alreadyinraid = false;
+				var exists = false;
+			
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						alreadyinraid = true;
+						exists = true;
 					}
 				}
-				if(!alreadyinraid) {
-					con.query("INSERT INTO `PStats` (UserID) VALUES (" + ID + ")");
+
+				if(!exists) {
+					con.query("INSERT INTO `Playerstats` (UserID) VALUES (" + ID + ")");
+					//con.query("INSERT INTO `Equipment` (UserID) VALUES (" + ID + ")");
 					message.channel.send('You have been Registered!');
 				} else {
 					message.reply('you are already Registered!');
 				}
 			});	
 		});
-		//generates default equipment for new !register
-		equip.connect(function(err){
-			if (err) throw err;
-			equip.query("Select * FROM Equip", function (err, result) {
-				if (err) throw err;
-				var ID = message.member.id;
-				var alreadyinraid = false;
-				for(var i = 0; i < result.length; i++) {
-					if(result[i].UserID == ID) {
-						alreadyinraid = true;
-					}
-				}
-				if(!alreadyinraid) {
-					equip.query("INSERT INTO `Equip` (UserID) VALUES (" + ID + ")");
-				}
-			});	
-		})
-		
 	},
 };

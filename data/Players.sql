@@ -18,7 +18,7 @@ USE `Players` ;
 -- Table `Players`.`Equipment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Players`.`Equipment` (
-  `ID` INT NOT NULL,
+  `ID` VARCHAR(45) NOT NULL,
   `Slot1` VARCHAR(45) NULL DEFAULT 'Makarov',
   `Slot2` VARCHAR(45) NULL DEFAULT 'EMPTY',
   `Slot3` VARCHAR(45) NULL DEFAULT 'EMPTY',
@@ -31,7 +31,7 @@ ENGINE = InnoDB;
 -- Table `Players`.`Stash`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Players`.`Stash` (
-  `ID` INT NOT NULL AUTO_INCREMENT,
+  `ID` VARCHAR(45) NOT NULL,
   `InventoryPath` VARCHAR(45) NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
@@ -41,7 +41,7 @@ ENGINE = InnoDB;
 -- Table `Players`.`Playerstats`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Players`.`Playerstats` (
-  `UserID` INT NOT NULL AUTO_INCREMENT,
+  `UserID` VARCHAR(45) NOT NULL,
   `Description` VARCHAR(45) NULL,
   `LVL` INT NULL DEFAULT 1,
   `EXP` INT NULL DEFAULT 0,
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `Players`.`Playerstats` (
   `DEX` INT NULL DEFAULT 5,
   `PREC` INT NULL DEFAULT 5,
   `PERC` INT NULL DEFAULT 5,
-  `Equipment_ID` INT NOT NULL,
-  `Stash_ID` INT NOT NULL,
+  `Equipment_ID` VARCHAR(45) NOT NULL,
+  `Stash_ID` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`UserID`, `Equipment_ID`, `Stash_ID`),
   INDEX `fk_Playerstats_Equipment_idx` (`Equipment_ID` ASC) VISIBLE,
   INDEX `fk_Playerstats_Stash1_idx` (`Stash_ID` ASC) VISIBLE,
