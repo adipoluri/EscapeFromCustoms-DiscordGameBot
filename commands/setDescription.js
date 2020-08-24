@@ -26,8 +26,6 @@ module.exports = {
 				if(alreadyinraid) {
 					var argClean = args.join(" ");
 					con.query('UPDATE PStats SET Description = "' + argClean + '" WHERE UserID = '+ ID);
-					
-					
 				} else {
 					message.channel.send("You're not Registered!");
 				}
