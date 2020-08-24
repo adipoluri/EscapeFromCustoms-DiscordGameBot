@@ -4,6 +4,7 @@ const fs = require('fs');
 const prefix = "!";
 //var Stats = require('./Stats.js')
 const client = new Discord.Client();
+exports.client = client;
 client.login(token);
 
 
@@ -25,7 +26,6 @@ client.on('message', message =>{
   var USERID = message.member.id;
   processID(USERID);
   if (!client.commands.has(command)) return;
-
   try {
     client.commands.get(command).execute(message, args);
   } catch (error) {
