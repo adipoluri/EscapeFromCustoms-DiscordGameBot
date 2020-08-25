@@ -117,7 +117,11 @@ module.exports = {
 								for(var i=0; i < result.length;){
 									players.push(result[i].UserID)
 									console.log(players)
-									message.channel.send(rollencounter(encounterType.push(Math.random() * 11), players[i], encounterType));
+									
+									//rng wasnt rolling properly so i extracted it and fixed it
+									var num = (Math.floor((Math.random() * 10) + 1));
+									encounterType.push(num);
+									message.channel.send(rollencounter(num, players[i], encounterType));
 									i++
 								}
 							})
