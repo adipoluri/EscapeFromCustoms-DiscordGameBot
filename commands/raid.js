@@ -54,14 +54,14 @@ module.exports = {
 						if(!alreadyinraid && alreadyregistered == true && raidstarted == false) {
 							//Utilizes the Stats array to store the player's stats for in game use, see 'PlayersInRaid' Schema.
 							con.query("INSERT INTO `PlayersInRaid` (UserID) VALUES (" + ID + ")");
-							con.query("UPDATE `PlayersInRaid`"+ "set STR = " + Stats[0] + " Where USERID = " + ID);
-							con.query("UPDATE `PlayersInRaid`"+ "set DEX = " + Stats[1] + " Where USERID = " + ID);
-							con.query("UPDATE `PlayersInRaid`"+ "set PREC = " + Stats[2] + " Where USERID = " + ID);
-							con.query("UPDATE `PlayersInRaid`"+ "set PERC = " + Stats[3] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set STR = " + Stats[0] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set DEX = " + Stats[1] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set PREC = " + Stats[2] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set PERC = " + Stats[3] + " Where USERID = " + ID);
 							if(!alreadyinraid && alreadyregistered == true && raidstarted == false)
 								message.channel.send('You have entered the raid!');
 						} else {
-							if(raidstarted == false){
+							if(!raidstarted){
 								message.channel.send('You are already queued or have not registered, make sure to user !register');
 						} else{
 							message.channel.send('Raid already started!')

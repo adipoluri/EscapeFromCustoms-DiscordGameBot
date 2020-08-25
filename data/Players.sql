@@ -1,3 +1,5 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -7,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema PlayersPlayerstats_UserIDSlot4Playerstats_UserID
+-- Schema Players
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `Players` DEFAULT CHARACTER SET utf8mb4 ;
 USE `Players` ;
@@ -81,18 +83,19 @@ ENGINE = InnoDB;
 -- Table `Players`.`PlayersInRaid`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Players`.`PlayersInRaid` (
-  `UserID` VARCHAR (45) NOT NULL,
-  `STR` INT(5) DEFAULT NULL,
-  `DEX` INT(5) DEFAULT NULL,
-  `PREC` INT(5) DEFAULT NULL,
-  `PERC` INT(5) DEFAULT NULL,
-  `HeadHP` INT(5) DEFAULT 35,
-  `ChestHP` INT(5) DEFAULT 80,
-  `Stomach` INT(5) DEFAULT 70,
-  `Arms` INT (5) DEFAULT 120,
-  `Legs` INT (5) DEFAULT 130,
+  `UserID` VARCHAR(45) NOT NULL,
+  `STR` INT DEFAULT 5,
+  `DEX` INT DEFAULT 5,
+  `PREC` INT DEFAULT 5,
+  `PERC` INT DEFAULT 5,
+  `HeadHP` INT NULL DEFAULT 35,
+  `ChestHP` INT NULL DEFAULT 80,
+  `Stomach` INT NULL DEFAULT 70,
+  `Arms` INT NULL DEFAULT 120,
+  `Legs` INT NULL DEFAULT 130,
   PRIMARY KEY (`UserID`))
 ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `Players`.`Items`
