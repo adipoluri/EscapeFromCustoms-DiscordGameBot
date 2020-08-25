@@ -9,23 +9,23 @@ module.exports = {
 			host: "localhost",
 			user: "root",
 			password:"password",
-			database: "PlayerStats",
+			database: "Players",
 		});
 		
 		con.connect(function(err){
 			if (err) throw err;
-			con.query("Select * FROM PStats", function (err, result) {
+			con.query("Select * FROM Playerstats", function (err, result) {
 				if (err) throw err;
 				var ID = message.member.id;
-				var found = false;
+				var alreadyinraid = false;
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						found = true;
+						alreadyinraid = true;
 					}
 				}
-				if(found) {
+				if(alreadyinraid) {
 					var argClean = args.join(" ");
-					con.query('UPDATE PStats SET Description = "' + argClean + '" WHERE UserID = '+ ID);
+					con.query('UPDATE Playerstats SET Description = "' + argClean + '" WHERE UserID = '+ ID);
 				} else {
 					message.channel.send("You're not Registered!");
 				}

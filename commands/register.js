@@ -4,56 +4,37 @@ module.exports = {
 	execute(message) {
 		var mysql = require('mysql');
 		
-		//Establishes connection to MySQL Database
+		//Establishes connection to MySQL Database for Stats
 		var con = mysql.createConnection({
 			host: "localhost",
 			user: "root",
 			password:"password",
-			database: "PlayerStats",
-		});
-		var equip = mysql.createConnection({
-			host: "localhost",
-			user: "root",
-			password:"password",
-			database: "Equipment",
+			database: "Players",
 		});
 		
-		
+		//generates default stats for new !register
 		con.connect(function(err){
 			if (err) throw err;
-			con.query("Select * FROM PStats", function (err, result) {
+			con.query("Select * FROM Playerstats", function (err, result) {
 				if (err) throw err;
 				var ID = message.member.id;
-				var found = false;
+				var exists = false;
+			
 				for(var i = 0; i < result.length; i++) {
 					if(result[i].UserID == ID) {
-						found = true;
+						exists = true;
 					}
 				}
-				if(!found) {
-					con.query("INSERT INTO `PStats` (UserID) VALUES (" + ID + ")");
+
+				if(!exists) {
+					con.query("INSERT INTO `Playerstats` (UserID) VALUES (" + ID + ")");
+					con.query("INSERT INTO `Equipment` (Playerstats_UserID) VALUES (" + ID + ")");
+					con.query("INSERT INTO `Stash` (Playerstats_UserID) VALUES (" + ID + ")");
 					message.channel.send('You have been Registered!');
 				} else {
-					message.channel.send('You are already Registered!');
+					message.reply('you are already Registered!');
 				}
 			});	
 		});
-		equip.connect(function(err){
-			if (err) throw err;
-			equip.query("Select * FROM Equip", function (err, result) {
-				if (err) throw err;
-				var ID = message.member.id;
-				var found = false;
-				for(var i = 0; i < result.length; i++) {
-					if(result[i].UserID == ID) {
-						found = true;
-					}
-				}
-				if(!found) {
-					equip.query("INSERT INTO `Equip` (UserID) VALUES (" + ID + ")");
-				}
-			});	
-		})
-		
 	},
 };
