@@ -54,14 +54,14 @@ module.exports = {
 						if(!alreadyinraid && alreadyregistered == true && raidstarted == false) {
 							//Utilizes the Stats array to store the player's stats for in game use, see 'PlayersInRaid' Schema.
 							con.query("INSERT INTO `PlayersInRaid` (UserID) VALUES (" + ID + ")");
-							con.query("UPDATE `PlayersInRaid`"+ "set STR = " + Stats[0] + " Where USERID = " + ID);
-							con.query("UPDATE `PlayersInRaid`"+ "set DEX = " + Stats[1] + " Where USERID = " + ID);
-							con.query("UPDATE `PlayersInRaid`"+ "set PREC = " + Stats[2] + " Where USERID = " + ID);
-							con.query("UPDATE `PlayersInRaid`"+ "set PERC = " + Stats[3] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set STR = " + Stats[0] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set DEX = " + Stats[1] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set PREC = " + Stats[2] + " Where USERID = " + ID);
+							con.query("UPDATE `PlayersInRaid`" + "set PERC = " + Stats[3] + " Where USERID = " + ID);
 							if(!alreadyinraid && alreadyregistered == true && raidstarted == false)
 								message.channel.send('You have entered the raid!');
 						} else {
-							if(raidstarted == false){
+							if(!raidstarted){
 								message.channel.send('You are already queued or have not registered, make sure to user !register');
 						} else{
 							message.channel.send('Raid already started!')
@@ -110,15 +110,19 @@ module.exports = {
 							raidstarted = true;
 							clearInterval(countdown)
 							var players  = [];
+							var encounterType = [];
 
 							con.query("Select * from PlayersInRaid", function (err, result){
 								if (err) throw err;
-								for(var i=0; i < result.length; i++){
+								for(var i=0; i < result.length;){
 									players.push(result[i].UserID)
 									console.log(players)
-									for(var x = 0; x < players.length;){
-										rollencounter(players.UserID)
-									}
+									
+									//rng wasnt rolling properly so i extracted it and fixed it
+									var num = (Math.floor((Math.random() * 10) + 1));
+									encounterType.push(num);
+									message.channel.send(rollencounter(num, players[i], encounterType));
+									i++
 								}
 							})
 						}
@@ -128,12 +132,17 @@ module.exports = {
 
 	
 		//rolls encounters, currently only has embedded message for it, will add more to it later -alex
-		var rollencounter = function(){
+		var rollencounter = function(rng, player, encounterType){
 			const roll = new Discord.MessageEmbed()
 			.setColor('#0099ff')
 			.setTitle('Roll for Encounter')
 			.setThumbnail('https://cdnb.artstation.com/p/assets/images/images/018/042/671/large/hayo-sena-00.jpg?1558240182')
-			message.channel.send(roll)
+			if(rng < 5){
+				roll.setDescription('You Encounter a Scav! ' + player)
+			}
+			else
+				roll.setDescription('Coast is clear, you look for loot. ' + player)
+			return roll;
 		}
 	},
 };
