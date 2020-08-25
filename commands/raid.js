@@ -15,24 +15,18 @@ module.exports = {
 	description: 'Raid',
 	execute(message) {
 		var mysql = require('mysql');
-		//Establish connection with temporary data of all players in raid
+		//Establish connection with temporary data of all players
 			var con = mysql.createConnection({
 				host: "localhost",
 				user: "root",
 				password:"password",
-				database: "PlayersInRaid"
+				database: "Players"
 		});
-		//Establish connection with PlayerStats record to be used later (see #1)
-			var cont = mysql.createConnection({
-				host: "localhost",
-				user: "root",
-				password:"password",
-				database: "PlayerStats"
-		});
+
 	//#1 Connects to and assigns the player stats from the user who used !raid into an array named Stats
-	cont.connect(function (err){
+	con.connect(function (err){
 			if (err) throw err;
-			cont.query("Select * FROM PStats", function(err, result){
+			con.query("Select * FROM PlayerStats", function(err, result){
 				var ID = message.member.id;
 				for(var i=0; i < result.length; i++){
 					if(result[i].UserID == ID){
@@ -41,7 +35,7 @@ module.exports = {
 				}
 			})
 		//ensures that the individual isn't from someone who has already registered for !raid, preventing their UserID and Stats from being duplicated
-		con.query("Select * FROM Players", function (err, result) {
+		con.query("Select * FROM PlayersInRaid", function (err, result) {
 			if (err) throw err;
 			var ID = message.member.id;
 			for(var i = 0; i < result.length; i++) {
@@ -55,11 +49,11 @@ module.exports = {
 				setTimeout(function(){
 			if(!alreadyinraid && alreadyregistered == true && raidstarted == false) {
 					//Utilizes the Stats array to store the player's stats for in game use, see 'PlayersInRaid' Schema.
-					con.query("INSERT INTO `Players` (UserID) VALUES (" + ID + ")");
-					con.query("UPDATE `Players`"+ "set STR = " + Stats[0] + " Where USERID = " + ID);
-					con.query("UPDATE `Players`"+ "set DEX = " + Stats[1] + " Where USERID = " + ID);
-					con.query("UPDATE `Players`"+ "set PREC = " + Stats[2] + " Where USERID = " + ID);
-					con.query("UPDATE `Players`"+ "set PERC = " + Stats[3] + " Where USERID = " + ID);
+					con.query("INSERT INTO `PlayersInRaid` (UserID) VALUES (" + ID + ")");
+					con.query("UPDATE `PlayersInRaid`"+ "set STR = " + Stats[0] + " Where USERID = " + ID);
+					con.query("UPDATE `PlayersInRaid`"+ "set DEX = " + Stats[1] + " Where USERID = " + ID);
+					con.query("UPDATE `PlayersInRaid`"+ "set PREC = " + Stats[2] + " Where USERID = " + ID);
+					con.query("UPDATE `PlayersInRaid`"+ "set PERC = " + Stats[3] + " Where USERID = " + ID);
 					if(!alreadyinraid && alreadyregistered == true && raidstarted == false)
 						message.channel.send('You have entered the raid!');
 			} else {
@@ -74,7 +68,7 @@ module.exports = {
 			function CheckIfRegistered(ID){
 				console.log('registerd ID is ' + ID)
 				if (err) throw err;
-				cont.query("SELECT * FROM PStats", function(err, result){
+				con.query("SELECT * FROM PlayerStats", function(err, result){
 					for(var i=0; i < result.length; i++){
 						if(result[i].UserID == ID){
 							alreadyregistered = true;
@@ -109,7 +103,7 @@ module.exports = {
 						clearInterval(countdown)
 						var players  = [];
 
-						con.query("Select * from Players", function (err, result){
+						con.query("Select * from PlayersInRaid", function (err, result){
 							if (err) throw err;
 							for(var i=0; i < result.length; i++){
 								players.push(result[i].UserID)
