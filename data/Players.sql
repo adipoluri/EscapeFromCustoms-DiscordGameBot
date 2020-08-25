@@ -15,29 +15,6 @@ CREATE SCHEMA IF NOT EXISTS `Players` DEFAULT CHARACTER SET utf8mb4 ;
 USE `Players` ;
 
 -- -----------------------------------------------------
--- Table `Players`.`Equipment`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Players`.`Equipment` (
-  `ID` VARCHAR(45) NOT NULL,
-  `Slot1` VARCHAR(45) NULL DEFAULT 'Makarov',
-  `Slot2` VARCHAR(45) NULL DEFAULT 'EMPTY',
-  `Slot3` VARCHAR(45) NULL DEFAULT 'EMPTY',
-  `Slot4` VARCHAR(45) NULL DEFAULT 'EMPTY',
-  PRIMARY KEY (`ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Players`.`Stash`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Players`.`Stash` (
-  `ID` VARCHAR(45) NOT NULL,
-  `InventoryPath` VARCHAR(45) NULL,
-  PRIMARY KEY (`ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `Players`.`Playerstats`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Players`.`Playerstats` (
@@ -49,19 +26,25 @@ CREATE TABLE IF NOT EXISTS `Players`.`Playerstats` (
   `DEX` INT NULL DEFAULT 5,
   `PREC` INT NULL DEFAULT 5,
   `PERC` INT NULL DEFAULT 5,
-  `Equipment_ID` VARCHAR(45) NOT NULL,
-  `Stash_ID` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`UserID`, `Equipment_ID`, `Stash_ID`),
-  INDEX `fk_Playerstats_Equipment_idx` (`Equipment_ID` ASC) VISIBLE,
-  INDEX `fk_Playerstats_Stash1_idx` (`Stash_ID` ASC) VISIBLE,
-  CONSTRAINT `fk_Playerstats_Equipment`
-    FOREIGN KEY (`Equipment_ID`)
-    REFERENCES `Players`.`Equipment` (`ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Playerstats_Stash1`
-    FOREIGN KEY (`Stash_ID`)
-    REFERENCES `Players`.`Stash` (`ID`)
+  PRIMARY KEY (`UserID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Players`.`Equipment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Players`.`Equipment` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Slot1` VARCHAR(45) NULL DEFAULT 'Makarov',
+  `Slot2` VARCHAR(45) NULL DEFAULT 'EMPTY',
+  `Slot3` VARCHAR(45) NULL DEFAULT 'EMPTY',
+  `Slot4` VARCHAR(45) NULL DEFAULT 'EMPTY',
+  `Playerstats_UserID` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`, `Playerstats_UserID`),
+  INDEX `fk_Equipment_Playerstats_idx` (`Playerstats_UserID` ASC) VISIBLE,
+  CONSTRAINT `fk_Equipment_Playerstats`
+    FOREIGN KEY (`Playerstats_UserID`)
+    REFERENCES `Players`.`Playerstats` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -76,6 +59,23 @@ CREATE TABLE IF NOT EXISTS `Players`.`Weapons` (
   `FULL-AUTO-AMNT` INT NULL,
   `Range` VARCHAR(8) NULL,
   PRIMARY KEY (`Weapon`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Players`.`Stash`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Players`.`Stash` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `InventoryPath` VARCHAR(45) NULL,
+  `Playerstats_UserID` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`, `Playerstats_UserID`),
+  INDEX `fk_Stash_Playerstats1_idx` (`Playerstats_UserID` ASC) VISIBLE,
+  CONSTRAINT `fk_Stash_Playerstats1`
+    FOREIGN KEY (`Playerstats_UserID`)
+    REFERENCES `Players`.`Playerstats` (`UserID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

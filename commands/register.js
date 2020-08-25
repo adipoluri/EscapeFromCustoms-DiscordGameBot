@@ -28,7 +28,8 @@ module.exports = {
 
 				if(!exists) {
 					con.query("INSERT INTO `Playerstats` (UserID) VALUES (" + ID + ")");
-					//con.query("INSERT INTO `Equipment` (UserID) VALUES (" + ID + ")");
+					con.query("INSERT INTO `Equipment` (Playerstats_UserIDs) VALUES (" + ID + ")");
+					//con.query("INSERT INTO `Stash` (Playerstats_UserIDs) VALUES (" + ID + ")");
 					message.channel.send('You have been Registered!');
 				} else {
 					message.reply('you are already Registered!');
