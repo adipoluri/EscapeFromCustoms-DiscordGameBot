@@ -108,8 +108,8 @@ module.exports = {
 							for(var i=0; i < result.length; i++){
 								players.push(result[i].UserID)
 								console.log(players)
-								for(var x = 0; x < players.length;){
-									rollencounter(players.UserID)
+								for(var x = 0; x < players.length; x++){
+									message.channel.send(rollencounter());
 								}
 							}
 						})
@@ -123,7 +123,7 @@ module.exports = {
 		.setColor('#0099ff')
 		.setTitle('Roll for Encounter')
 		.setThumbnail('https://cdnb.artstation.com/p/assets/images/images/018/042/671/large/hayo-sena-00.jpg?1558240182')
-		message.channel.send(roll)
+		return roll;
 	}
 	},
 };
