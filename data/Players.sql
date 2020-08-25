@@ -84,10 +84,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Players`.`PlayersInRaid` (
   `UserID` VARCHAR(45) NOT NULL,
-  `STR` INT NOT NULL,
-  `DEX` INT NOT NULL,
-  `PREC` INT NOT NULL,
-  `PERC` INT NOT NULL,
+  `STR` INT DEFAULT 5,
+  `DEX` INT DEFAULT 5,
+  `PREC` INT DEFAULT 5,
+  `PERC` INT DEFAULT 5,
   `HeadHP` INT NULL DEFAULT 35,
   `ChestHP` INT NULL DEFAULT 80,
   `Stomach` INT NULL DEFAULT 70,
