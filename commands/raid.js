@@ -132,7 +132,7 @@ module.exports = {
 
 	
 		//rolls encounters, currently only has embedded message for it, will add more to it later -alex
-		var rollencounter = function(rng, player, encounterType){
+		var rollencounter = function(rng, player, encounterType, i){
 			const roll = new Discord.MessageEmbed()
 			.setColor('#0099ff')
 			.setTitle('Roll for Encounter')
@@ -140,9 +140,11 @@ module.exports = {
 		
 			if(rng < 5){
 				roll.setDescription('You Encounter a Scav! ' + player)
+				encounterType[i] = 'scav'
 			}
 			else
 				roll.setDescription('Coast is clear, you look for loot. ' + player)
+				encounterType[i] = 'loot'
 			return roll;
 		}
 	},

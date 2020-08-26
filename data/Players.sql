@@ -103,9 +103,13 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Players`.`Items` (
   `Item` VARCHAR(45) NOT NULL,
   `Description` TINYTEXT NULL,
-  PRIMARY KEY (`Item`))
+  `ImageURL` varchar(200) DEFAULT NULL,
+  `ID` int(50) AUTO_INCREMENT, #should be auto incremental
+  PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
-
+INSERT INTO `items` VALUES ('Metal Cutting Scissors', 'Special scissors for cutting sheet metal.', 'https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/5/53/Metal_cutting_scissors.png/revision/latest/scale-to-width-down/320?cb=20191030130323', DEFAULT);
+INSERT INTO `items` VALUES ('Bolts', 'Bolts, together with nuts, are used to fasten things in place', 'https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/f/fb/Boltsimage.png/revision/latest/scale-to-width-down/306?cb=20180326111346', DEFAULT);
+INSERT INTO `items` VALUES ('Screw Nut', 'Just a commonplace screw nut, with no apparent use.', 'https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/e/ef/Screwnut3d.png/revision/latest/scale-to-width-down/373?cb=20180703022751', DEFAULT);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
