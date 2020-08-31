@@ -136,6 +136,7 @@ module.exports = {
 			.setColor('#0099ff')
 			.setTitle('Roll for Encounter')
 			.setThumbnail('https://cdnb.artstation.com/p/assets/images/images/018/042/671/large/hayo-sena-00.jpg?1558240182')
+		
 			if(rng < 5){
 				roll.setDescription('You Encounter a Scav! ' + player)
 				encounterType[i] = 'scav'
