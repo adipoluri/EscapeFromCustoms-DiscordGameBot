@@ -122,7 +122,6 @@ module.exports = {
 									var num = (Math.floor((Math.random() * 10) + 1));
 									encounterType.push(num);
 									message.channel.send(rollencounter(num, players[i], encounterType));
-									i++
 								}
 							})
 						}
@@ -145,6 +144,9 @@ module.exports = {
 				roll.setDescription('Coast is clear, you look for loot. ' + player)
 				encounterType[i] = 'loot'
 			return roll;
+		}
+		var loot = function(player, i){
+
 		}
 	},
 };
