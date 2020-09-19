@@ -78,6 +78,23 @@ CREATE TABLE IF NOT EXISTS `Players`.`Stash` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `Players`.`Inventory`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Players`.`Inventory` (
+  `UserID` varchar(45) NOT NULL,
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Item` VARCHAR(45) NULL,
+  `Amount` INT DEFAULT 1,
+  PRIMARY KEY (`UserID`),
+  INDEX `fk_Stash_Playerstats1_idx` (`Playerstats_UserID` ASC) VISIBLE,
+  CONSTRAINT `fk_Stash_Playerstats1`
+    FOREIGN KEY (`Playerstats_UserID`)
+    REFERENCES `Players`.`Playerstats` (`UserID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `Players`.`PlayersInRaid`
