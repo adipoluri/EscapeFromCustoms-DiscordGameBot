@@ -1,1 +1,2 @@
-# Tarkov-Discord-Game
+# *Escape From Customs* Discord Bot
+---
